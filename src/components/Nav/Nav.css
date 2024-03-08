@@ -1,0 +1,124 @@
+.nav{
+    position: relative;
+    width: 100%;
+    background-color: blue;
+    height: 4rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.177);
+    z-index: 2;
+    overflow-x: hidden;
+}
+
+.nav-container{
+    height: 100%;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0.25rem 1rem;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.logo{
+    font-size: 2rem;
+    color: white;
+    font-weight: 700;
+    user-select: none;
+}
+
+.nav-links{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-link{
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+    transition: 300ms transform ease-in-out;
+}
+
+
+.nav-link:hover{
+    transform: scale(1.05);
+}
+
+/* .hamburger-space{
+    display: block;
+}
+
+.hamburger-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.hamburger-icon.active{
+    color: red;
+    font-weight: 700;
+}
+
+.hamburger-list{
+    position: absolute;
+    z-index: 1;
+    top: 4rem;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(53, 53, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translate(100%, 0);
+}
+
+.hamburger--moved{
+    transform: translate(0, 0);
+}
+
+.hamburger--hide{
+    transform: ;
+}
+
+@keyframes slidein{
+    from{
+        transform: translate(100%, 0);
+    }to{
+
+    }
+}
+
+.hamburger-link{
+    width: 100%;
+    max-width: 400px;
+    color: white;
+    font-size: 1.25rem;
+    height: 3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.hamburger-link:hover{
+    background-color: rgb(101, 101, 249); */
+/* } */
+
+
+
+
+

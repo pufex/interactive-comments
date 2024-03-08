@@ -1,0 +1,178 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+html, body, #root{
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#root{
+    background-color: rgb(225, 246, 255);
+}
+
+.post{
+    padding-top: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+.post-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    background-color: rgb(175, 228, 249);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.plus-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 2.5rem;
+}
+
+.add-plus, .add-minus{
+    display: block;
+    height: 3rem;
+    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    user-select: none;
+    border-radius: 5px;
+}
+
+.add-plus{
+    background-color: green;
+}
+
+.add-plus:hover{
+    background-color: rgb(0, 204, 0);
+}
+
+.add-minus{
+    background-color: red;
+}
+
+.add-minus:hover{
+    background-color: rgb(255, 53, 53);
+}
+
+.post-right{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.post-author{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.post-author .profile-picture{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    border: 2px solid rgba(42, 42, 42, 0.115);
+    object-fit: cover;
+    object-position: center center;
+}
+
+.author-info{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.author-name{
+    font-size: 1rem;
+    font-weight: 600;
+    color: navy;
+}
+
+.author-date{
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: black;
+}
+
+.post-content{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    padding-left: 3.5rem;
+    max-width: 1000px;
+}
+
+.post-options{
+    padding-left: 3.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: start;
+    align-items: center;
+}
+
+.reply{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 1rem;
+    min-width: 100px;
+    background-color: navy;
+    color: white;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+}
+
+.reply:hover{
+    background-color: rgb(24, 24, 203);
+}
+
+.reply.active{
+    background-color: crimson;
+}
+
+.reply.active:hover{
+    background-color: rgb(244, 38, 79);
+}
+
+.comment-section{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgb(140, 213, 243);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 2rem;
+    padding: 2rem;
+}

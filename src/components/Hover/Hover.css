@@ -1,0 +1,28 @@
+.hover{
+    position: absolute;
+    width: auto;
+    max-width: 300px;
+    padding: 1rem;
+    transform: translate(-100%, calc(-100% - 7px));
+    background-color: black;
+    border-radius: 7px;
+    border: 1px solid black;
+    color: white;
+    z-index: 999;
+}
+
+.hover-message{
+    display: inline-block;
+    text-wrap: nowrap;
+}
+
+.hover-triangle{
+    position: absolute;
+    top: 100%;
+    left: 3px;
+    
+    box-sizing: content-box;
+    border-left: 7px solid rgba(0, 0, 0, 0);
+    border-right: 7px solid rgba(0, 0, 0, 0);
+    border-top: 7px solid black;
+}
