@@ -12,26 +12,27 @@ const Comment = (props) => {
 
     const [reply, setReply] = useState(false)
 
-    console.log(path);
+    console.log(comments)
     
-    const handleNestedReply = (path, content) => {
-        const addReply = (arr, path, toThisArray, id, iterator) => {
+    const handleNestedReply = (path, theComment) => {
+        const addValue = (arr, path, toThisArray, id, iterator, content) => {
+            console.log(content)
             arr.map((obj, index) => {
               if(obj[id] == path[iterator]){
                 if(path.length-1 == iterator){
                     const newComment = {
-                        id: index,
+                        id: obj[toThisArray].length,
                         username: userData.username,
                         date: makeGoodDate(),
                         profile: userData.profile,
-                        content: content,
+                        content: `${content}{&end}`,
                         plus: 0,
                         rated: false,
                         replies: [],
                     }
                     obj[toThisArray].push(newComment); 
                 }
-                else addReply(obj[toThisArray], path, toThisArray, newObj, id, ++iterator)
+                else addValue(obj[toThisArray], path, toThisArray, id, ++iterator, content)
               }
               return obj;
             })
@@ -39,7 +40,7 @@ const Comment = (props) => {
         } 
 
         let updatedComments = comments;
-        updatedComments = addValue(updatedComments, path, "replies", "id", 0);
+        updatedComments = addValue(updatedComments, path, "replies", "id", 0, theComment);
         setComments(updatedComments);
     }
 
@@ -60,9 +61,7 @@ const Comment = (props) => {
     // }
 
 
-    let containerStyles = {
-        paddingLeft: `${degree*150}px`
-    }
+    let containerStyles = degree == 0 ? null : {paddingLeft: `${150}px`} 
 
     const seperateStrings = (string = "", seperator = "") => {
         let arr = [], j = 0;
@@ -84,7 +83,7 @@ const Comment = (props) => {
     });
 
     let replyList = replies?.map((reply,index) => {
-        console.log(path.concat([index]));
+        console.log(reply.content)
         return <Comment 
             id={index}
             key={index}
@@ -103,7 +102,6 @@ const Comment = (props) => {
         />
     });
 
-    console.log("koniec")
 
     return <div 
         className='comment-container'
@@ -115,7 +113,7 @@ const Comment = (props) => {
                 <button
                     className='comment-plus'
                     onClick={() => {
-                        console.log(1)
+                        Boolean(true)
                     }
                 }
                 >
@@ -127,7 +125,7 @@ const Comment = (props) => {
                 <button
                     className='comment-minus'
                     onClick={() => {
-                            console.log(-1)
+                            Boolean(false);
                         }
                     }
                 >

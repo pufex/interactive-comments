@@ -25,7 +25,7 @@ const Form = (props) => {
             autoComplete='off'
             placeholder='Your comment goes here...' 
             value={content} 
-            onClick={(e) => {console.log(e.target.value)}}
+            onClick={(e) => {Boolean(true)}}
             onChange={(e)=> {setContent(e.target.value)}}
         ></textarea>
         <div className='form-buttons'>

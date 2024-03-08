@@ -7,7 +7,7 @@ import Comment from "./components/Comment/Comment"
 import Hover from "./components/Hover/Hover"
 import './App.css'
 
-console.clear();
+
 
 let user = {
   username: "Andrzej Morozowski",
@@ -90,6 +90,8 @@ function App() {
   const [comments, setComments] = useState(data);
 
 
+  console.log(comments)
+
   const handleNewComment = (content) => {
     let newComments = {
       id: 0,
@@ -105,11 +107,10 @@ function App() {
   } 
 
   const handleRating = () => {
-    console.log("Robie")
+    Boolean(true);
   }
 
   let commentList = comments.map((comment, index) => {
-    console.log([index]);
     return <Comment 
       id={index}
       path={[index]}
