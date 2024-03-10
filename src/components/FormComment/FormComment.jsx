@@ -27,12 +27,23 @@ const FormComment = (props) => {
         <textarea
             className='another-textarea'
         ></textarea>
-        <button
-            type='submit'
-            className='another-submit'
-        >
-            Send
-        </button>
+        <div className='another-buttons'>
+            <button
+                className='another-cancel'
+                onClick={() => {
+                        setReply(false);
+                    }
+                }
+            >
+                Cancel
+            </button>
+            <button
+                type='submit'
+                className='another-submit'
+            >
+                Send
+            </button>
+        </div>
     </form>
 }
 

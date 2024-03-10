@@ -25,7 +25,13 @@
     height: 8rem;
 }
 
-.another-submit{
+.another-buttons{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.another-form button{
     padding: 0.25rem 1rem;
     width: 150px;
     display: flex;
@@ -37,12 +43,25 @@
     outline: none;
     border: none;
     user-select: none;
-    border-radius: 3px;
-    background-color: navy;
     cursor: pointer;
+    border-radius: 3px;
+}
+
+.another-submit{
+    background-color: navy;
 }
 
 .another-submit:hover{
     background: rgb(0, 0, 205);
+    cursor: pointer;
 }
+
+.another-cancel{
+    background-color: red;
+}
+
+.another-cancel:hover{
+    background-color: rgb(255, 78, 78);
+}
+
 

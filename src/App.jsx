@@ -12,7 +12,7 @@ import './App.css'
 let user = {
   username: "Andrzej Morozowski",
   profile: "/images/profile-picture-mine.jpg",
-  key: "P2Oj7fUN",
+  userCode: "UE21ruSC",
 }
 
 saveData("user", user);
@@ -26,6 +26,8 @@ let data = [
     content: "I personally think that your opinion is wrong. Here's why:{&end}First of all, your a bad person. You abuse people, making them believe that you're this mild person, but in reality you're a disgusting monster.{&end}Secondly, I hate you. You should commit a suicide, NOW!{&end}Lastly, don't starve yourself to death. Just an opinion; if you die, you're not gonna suffer any longer, boy.{&end}That's it.{&end}",
     plus: -7,
     rated: false,
+    rateNote: undefined,
+    userCode: "tJyqQOk6",
     replies: [
       {
         id: 0,
@@ -35,6 +37,8 @@ let data = [
         content: "Why are you so hateful, Adrian? There is no need to be so vile...{&end}",
         plus: 8,
         rated: false,
+        rateNote: undefined,
+        userCode: "de9w9b4k",
         replies: [],
       },
       {
@@ -43,8 +47,10 @@ let data = [
         date: "18:40, 23rd May 2023",
         profile: "/images/profile-picture-0.jpg",
         content: "You're so clueless, aren't you, Mike?? You stupid ni-...{&end}",
-        rated: false,
         plus: -3,
+        rated: false,
+        rateNote: undefined,
+        userCode: "tJyqQOk6",
         replies: [],
       },
     ]
@@ -55,8 +61,10 @@ let data = [
     date: "19:02, 23rd May 2023",
     profile: "/images/profile-picture-2.jpg",
     content: "Yo, is it just me, or is this madafaker making ain't no sense, nigga? You're wild mah boy...{&end}",
-    rated: false,
     plus: 6,
+    rated: false,
+    rateNote: undefined,
+    userCode: "bT84gvar",
     replies: [
       {
         id: 0,
@@ -64,8 +72,10 @@ let data = [
         date: "19:23, 23rd May 2023",
         profile: "/images/profile-picture-3.jpg",
         content: "Not just you, this post is just 2 paragraphs of random gibberish... And oddly enough, some people got triggered.{&end}",
-        rated: false,
         plus: 2,
+        rated: false,
+        rateNote: undefined,
+        userCode: "bNBGyKUb",
         replies: [],
       },
       {
@@ -74,13 +84,19 @@ let data = [
         date: "19:30, 23rd May 2023",
         profile: "/images/profile-picture-0.jpg",
         content: "Just you, buddy. And hey, don't use the n-word, that's racist.{&end}",
-        rated: false,
         plus: -1,
+        rated: false,
+        rateNote: undefined,
+        userCode: "tJyqQOk6",
         replies: [],
       }
     ]
   }
 ]
+
+// localStorage.setItem("comments", JSON.stringify(data));
+
+
 
 function App() {
   
@@ -88,9 +104,6 @@ function App() {
   const [formVisibility, setFormVisibility] = useState(false);
   const [mainLikes, setLikes] = useState([false, 4, undefined])
   const [comments, setComments] = useState(data);
-
-
-  console.log(comments)
 
   const handleNewComment = (content) => {
     let newComments = {
@@ -101,6 +114,8 @@ function App() {
       content: `${content}{&end}`,
       plus: 0,
       rated: false,
+      rateNote: undefined,
+      userCode: user.userCode,
       replies: [],
     }
     setComments([...comments, newComments])
@@ -126,6 +141,8 @@ function App() {
       comments={comments}
       setComments={setComments}
       handleRating={handleRating}
+      rateNote={comment.rateNote}
+      userCode={comment.userCode}
     />
   })
 

@@ -8,15 +8,65 @@ import Form from '../Form/Form.jsx';
 const Comment = (props) => {
 
     const userData = fetchData("user");
-    const {id, path, profile, username, date, content, plus, rated, replies, degree, comments, setComments, handleRating, ...rest} = props;
+    const {id, path, profile, username, date, content, plus, rated, replies, degree, comments, setComments, handleRating, rateNote, userCode, ...rest} = props;
 
     const [reply, setReply] = useState(false)
 
-    console.log(comments)
+    console.log(comments, plus)
     
+    const handleNestedRating = (path, rateSign) => {
+        console.log(1);
+        console.log(path)
+        const changeRating = (arr, path, keepsRepeating, id, iterator, rate) => {
+            console.log(path)
+            arr.map((obj, index) => {
+                console.log(path)
+                console.log(iterator);
+                console.log(obj[id], path[iterator])
+                console.log(Boolean(obj[id] == path[iterator]))
+                if(obj[id] == path[iterator]){
+                    console.log(`Found ${iterator+1} time${iterator+1 > 1 ? "s" : ""}`)
+                    if(path.length-1 == iterator){
+                        obj.rated = true; 
+                        obj.rateNote = rate ? true : false;
+                        rate ? ++obj.plus : --obj.plus;
+                    }
+                    else changeRating(obj[keepsRepeating], path, keepsRepeating, id, ++iterator, rate)
+                }
+                return obj;
+            })
+            return arr;
+        } 
+        let updatedComments = comments.slice();
+        updatedComments = changeRating(updatedComments, path, "replies", "id", 0, rateSign);
+        localStorage.setItem("comments", JSON.stringify(updatedComments));
+        setComments(updatedComments);
+        console.log(comments);
+    }
+
+    const handleNestedDelete = (path) => {
+        const deleteComment = (arr, path, toThisArray, id, iterator) => {
+            arr.map((obj, index) => {
+              if(obj[id] == path[iterator]){
+                if(path.length-1 == iterator){
+                    return null;
+                }
+                else deleteComment(obj[toThisArray], path, toThisArray, id, ++iterator)
+              }
+              return obj;
+            })
+            return arr.filter((obj) => obj != null);
+        } 
+
+        let updatedComments = comments.slice();
+        updatedComments = deleteComment(updatedComments, path, "replies", "id", 0);
+        console.log(updatedComments)
+        localStorage.setItem("comments", JSON.stringify(updatedComments))
+        setComments(updatedComments);
+    }
+
     const handleNestedReply = (path, theComment) => {
         const addValue = (arr, path, toThisArray, id, iterator, content) => {
-            console.log(content)
             arr.map((obj, index) => {
               if(obj[id] == path[iterator]){
                 if(path.length-1 == iterator){
@@ -28,6 +78,8 @@ const Comment = (props) => {
                         content: `${content}{&end}`,
                         plus: 0,
                         rated: false,
+                        rateNote: undefined,
+                        userCode: userData.userCode,
                         replies: [],
                     }
                     obj[toThisArray].push(newComment); 
@@ -41,24 +93,10 @@ const Comment = (props) => {
 
         let updatedComments = comments;
         updatedComments = addValue(updatedComments, path, "replies", "id", 0, theComment);
+        localStorage.setItem("comments", JSON.stringify(updatedComments))
         setComments(updatedComments);
+        console.log(comments);
     }
-
-    // const handleRating = (id, rating) => {
-    //     let allComments = comments;
-    //     if(degree == 0){
-        //         allComments[id].plus += rating;
-    //         allComments[id].rated = true;
-    //         setComments(allComments);
-    //         return;
-    //     }
-    //     allComments = allComments[id].replies;
-    //     for(i = 0; i < degree; i++){
-    //         allComments = allComments
-    //     }
-    
-    
-    // }
 
 
     let containerStyles = degree == 0 ? null : {paddingLeft: `${150}px`} 
@@ -73,7 +111,7 @@ const Comment = (props) => {
           j++;
         }
         return arr;
-      }
+    }
 
     let commentContent = seperateStrings(content, "{&end}");
     commentContent = commentContent.map((paragraph, index) => {
@@ -83,7 +121,6 @@ const Comment = (props) => {
     });
 
     let replyList = replies?.map((reply,index) => {
-        console.log(reply.content)
         return <Comment 
             id={index}
             key={index}
@@ -99,9 +136,38 @@ const Comment = (props) => {
             comments={comments}
             setComments={setComments}
             handleRating={handleRating}
+            userCode={reply.userCode}
+            rateNote={reply.rateNote}
         />
     });
 
+    let ratingStyle;
+    switch(rateNote){
+        case true: 
+            ratingStyle = {color: "green"};
+            break;
+        case false: 
+            ratingStyle = {color: "red"};
+            break;
+        default:  
+            ratingStyle = {color: "auto"};
+            break;
+    }
+
+    let userButtons = <>
+        <button
+            className='comment-edit'
+            onClick={Boolean(true)}
+        >
+            Edit
+        </button>
+        <button
+            className='comment-delete'
+            onClick={() => {handleNestedDelete(path)}}
+        >
+            Delete
+        </button>
+    </>
 
     return <div 
         className='comment-container'
@@ -110,27 +176,29 @@ const Comment = (props) => {
         <div className='comment'>
         {degree > 0 ? <div className='comment-pole'></div> : null}
             <div className='comment-rating'>
-                <button
-                    className='comment-plus'
-                    onClick={() => {
-                        Boolean(true)
-                    }
-                }
-                >
-                    +
-                </button>
-                <div className='comment-counter'>
-                    {plus}
-                </div>
-                <button
-                    className='comment-minus'
-                    onClick={() => {
-                            Boolean(false);
+                { !rated ? <button
+                        className='comment-plus'
+                        onClick={() => {
+                            !rated ? handleNestedRating(path, true) : null;
                         }
                     }
-                >
-                    -
-                </button>
+                    >
+                      +
+                    </button> : null
+                }
+                <div className='comment-counter' style={ratingStyle}>
+                    {plus}
+                </div>
+                {   !rated ? <button
+                        className='comment-minus'
+                        onClick={() => {
+                                !rated ? handleNestedRating(path, false) : null;
+                            }
+                        }
+                    >
+                        -
+                    </button> : null
+                }
             </div>
             <div className='comment-right'>
                 <div className='comment-info'>
@@ -158,6 +226,9 @@ const Comment = (props) => {
                     >
                         {reply ? "hide" : "reply"}
                     </button>
+                    {
+                        userCode == userData.userCode ? userButtons : null
+                    }
                 </div>
             </div>
         </div>
